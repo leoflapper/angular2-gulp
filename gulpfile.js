@@ -17,46 +17,53 @@ var csso = require('gulp-csso');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
+var changed = require('gulp-changed');
+
+var DIST = 'public/dist';
+var LIB = DIST +'/lib';
+var APP = DIST +'/app';
+
 
 // clean the contents of the distribution directory
 gulp.task('clean:lib', function () {
-  return del('public/dist/lib');
+  return del(LIB);
 });
 
 // SASS compile
 gulp.task('sass', function() {
-  return gulp.src('app/**/*.scss')
+  return gulp.src('app/scss/main.scss')
     .pipe(plumber())
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulpif(argv.production, csso()))
     .pipe(concat('main.css'))
-    .pipe(gulp.dest('./public/dist'))
+    .pipe(gulp.dest(DIST))
     .pipe(browserSync.stream());
 });
 
 gulp.task('templates', function() {
   return gulp.src('app/**/*.html')
     .pipe(uglify())
-    .pipe(gulp.dest('public/dist/app'));
+    .pipe(gulp.dest(APP));
 });
 
 // TypeScript compile
 gulp.task('compile', function () {
   return gulp
     .src('app/**/*.ts')
+    .pipe(changed(APP))
     .pipe(sourcemaps.init()) 
     .pipe(typescript(tscConfig.compilerOptions))
     .pipe(ngAnnotate())
     .pipe(gulpif(argv.production, uglify()))
-    .pipe(gulp.dest('public/dist/app'));
+    .pipe(gulp.dest(APP));
 });
 
 gulp.task('copy:libs', ['clean:lib'], function() {
     return gulp.src([
       'node_modules/**/*'
     ])
-    .pipe(gulp.dest('public/dist/lib'))
+    .pipe(gulp.dest(LIB))
 });
 
 gulp.task('tslint', function() {
@@ -77,7 +84,7 @@ gulp.task('tsconfig-glob', function () {
 
 gulp.task('copy:assets', ['clean:lib'], function() {
   return gulp.src(['app/**/*', '!app/**/*.ts', '!app/**/*.scss'], { base : './' })
-    .pipe(gulp.dest('public/dist'))
+    .pipe(gulp.dest(DIST))
 });
 
 
@@ -90,7 +97,7 @@ gulp.task('watch', ['tsconfig-glob'], function() {
         }
   });
 
-  gulp.watch('app/**/*.scss', ['sass']).on('change', browserSync.reload);
+  gulp.watch('app/scss/**/*.scss', ['sass']);
   gulp.watch('app/**/*.html', ['templates']).on('change', browserSync.reload);
   gulp.watch('app/**/*.ts', ['compile']).on('change', browserSync.reload);
 });

@@ -1,0 +1,189 @@
+/******************************************
+ * Border (single-line)                   *
+ * -------------------------------------- *
+ * a: all             l: light (#eee)     *
+ * t: top             m: medium (#dadada) *
+ * r: right           d: dark (#ccc)      *
+ * b: bottom          b: black (#000)     *
+ * l: left                                *
+ * h: horizontal                          *
+ * v: vertical                            *
+ ******************************************/
+.no-border { border: none !important; }
+
+.bal { border: 1px solid $light-border-color }
+.bam { border: 1px solid $normal-border-color }
+.bad { border: 1px solid #ccc }
+.bab { border: 1px solid #000 }
+
+.btl { border-top: 1px solid $light-border-color }
+.btm { border-top: 1px solid $normal-border-color }
+.btd { border-top: 1px solid #ccc }
+.btb { border-top: 1px solid #000 }
+
+.brl { border-right: 1px solid $light-border-color }
+.brm { border-right: 1px solid $normal-border-color }
+.brd { border-right: 1px solid #ccc }
+.brb { border-right: 1px solid #000 }
+
+.bbl { border-bottom: 1px solid $light-border-color }
+.bbm { border-bottom: 1px solid $normal-border-color }
+.bbd { border-bottom: 1px solid #ccc }
+.bbb { border-bottom: 1px solid #000 }
+
+.bll { border-left: 1px solid $light-border-color }
+.blm { border-left: 1px solid $normal-border-color }
+.bld { border-left: 1px solid #ccc }
+.blb { border-left: 1px solid #000 }
+
+.bhl { border-top: 1px solid $light-border-color; border-bottom: 1px solid $light-border-color }
+.bhm { border-top: 1px solid $normal-border-color; border-bottom: 1px solid $normal-border-color }
+.bhd { border-top: 1px solid #ccc; border-bottom: 1px solid #ccc }
+.bhb { border-top: 1px solid #000; border-bottom: 1px solid #000 }
+
+.bvl { border-left: 1px solid $light-border-color; border-right: 1px solid $light-border-color }
+.bvm { border-left: 1px solid $normal-border-color; border-right: 1px solid $normal-border-color }
+.bvd { border-left: 1px solid #ccc; border-right: 1px solid #ccc }
+.bvb { border-left: 1px solid #000; border-right: 1px solid #000 }
+
+
+/******************************************
+ * Border radius                          *
+ * -------------------------------------- *
+ * a: all                n: none          *
+ * t: top                t: tiny (2px)    *
+ * r: right              s: small (5px)   *
+ * b: bottom                              *
+ * l: left                                *
+ ******************************************/
+
+.bran { border-radius: 0 }
+.brat { border-radius: 2px }
+.bras { border-radius: 5px }
+
+.brtn { border-top-left-radius: 0;   border-top-right-radius: 0 }
+.brtt { border-top-left-radius: 2px; border-top-right-radius: 2px }
+.brts { border-top-left-radius: 5px; border-top-right-radius: 5px }
+
+.brrn { border-top-right-radius: 0;   border-bottom-right-radius: 0 }
+.brrt { border-top-right-radius: 2px; border-bottom-right-radius: 2px }
+.brrs { border-top-right-radius: 5px; border-bottom-right-radius: 5px }
+
+.brbn { border-bottom-left-radius: 0;   border-bottom-right-radius: 0 }
+.brbt { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px }
+.brbs { border-bottom-left-radius: 5px; border-bottom-right-radius: 5px }
+
+.brln { border-top-left-radius: 0;   border-bottom-left-radius: 0 }
+.brlt { border-top-left-radius: 2px; border-bottom-left-radius: 2px }
+.brls { border-top-left-radius: 5px; border-bottom-left-radius: 5px }
+
+/******************************************
+ * Margins & Paddings                     *
+ * -------------------------------------- *
+ * a: all                n: none          *
+ * t: top                t: tiny (2px)    *
+ * r: right              s: small (5px)   *
+ * b: bottom             m: medium (10px) *
+ * l: left               l: large (15px)  *
+ * h: horizontal         h: huge (20px)   *
+ * v: vertical                            *
+ ******************************************/
+
+.man { margin: 0 }
+.mat { margin: 2px }
+.mas { margin: 5px }
+.mam { margin: 10px }
+.mal { margin: 20px }
+.mah { margin: 30px }
+
+.mtn { margin-top: 0 }
+.mtt { margin-top: 2px }
+.mts { margin-top: 5px }
+.mtm { margin-top: 10px }
+.mtl { margin-top: 20px }
+.mth { margin-top: 30px }
+
+.mrn { margin-right: 0 }
+.mrt { margin-right: 2px }
+.mrs { margin-right: 5px }
+.mrm { margin-right: 10px }
+.mrl { margin-right: 20px }
+.mrh { margin-right: 30px }
+
+.mbn { margin-bottom: 0 !important }
+.mbt { margin-bottom: 2px }
+.mbs { margin-bottom: 5px }
+.mbm { margin-bottom: 10px }
+.mbl { margin-bottom: 20px }
+.mbh { margin-bottom: 30px }
+
+.mln { margin-left: 0 }
+.mlt { margin-left: 2px }
+.mls { margin-left: 5px }
+.mlm { margin-left: 10px }
+.mll { margin-left: 20px }
+.mlh { margin-left: 30px }
+
+.mhn { margin-left: 0; margin-right: 0 }
+.mht { margin-left: 2px; margin-right: 2px }
+.mhs { margin-left: 5px; margin-right: 5px }
+.mhm { margin-left: 10px; margin-right: 10px }
+.mhl { margin-left: 20px; margin-right: 20px }
+.mhh { margin-left: 30px; margin-right: 30px }
+
+.mvn { margin-top: 0; margin-bottom: 0 }
+.mvt { margin-top: 2px; margin-bottom: 2px }
+.mvs { margin-top: 5px; margin-bottom: 5px }
+.mvm { margin-top: 10px; margin-bottom: 10px }
+.mvl { margin-top: 20px; margin-bottom: 20px }
+.mvh { margin-top: 30px; margin-bottom: 30px }
+
+.pan { padding: 0 }
+.pat { padding: 2px }
+.pas { padding: 5px }
+.pam { padding: 10px }
+.pal { padding: 20px }
+.pah { padding: 30px }
+
+.ptn { padding-top: 0 !important }
+.ptt { padding-top: 2px }
+.pts { padding-top: 5px }
+.ptm { padding-top: 10px }
+.ptl { padding-top: 20px }
+.pth { padding-top: 30px }
+
+.prn { padding-right: 0 }
+.prt { padding-right: 2px }
+.prs { padding-right: 5px }
+.prm { padding-right: 10px }
+.prl { padding-right: 20px }
+.prh { padding-right: 30px }
+
+.pbn { padding-bottom: 0 }
+.pbt { padding-bottom: 2px }
+.pbs { padding-bottom: 5px }
+.pbm { padding-bottom: 10px }
+.pbl { padding-bottom: 20px }
+.pbh { padding-bottom: 30px }
+
+.pln { padding-left: 0  !important}
+.plt { padding-left: 2px }
+.pls { padding-left: 5px }
+.plm { padding-left: 10px }
+.pll { padding-left: 20px }
+.plh { padding-left: 30px }
+
+.phn { padding-left: 0; padding-right: 0 }
+.pht { padding-left: 2px; padding-right: 2px }
+.phs { padding-left: 5px; padding-right: 5px }
+.phm { padding-left: 10px; padding-right: 10px }
+.phl { padding-left: 20px; padding-right: 20px }
+.phh { padding-left: 30px; padding-right: 30px }
+
+.pvn { padding-top: 0; padding-bottom: 0 !important }
+.pvt { padding-top: 2px; padding-bottom: 2px }
+.pvs { padding-top: 5px; padding-bottom: 5px }
+.pv9 { padding-top: 9px; padding-bottom: 9px }
+.pvm { padding-top: 10px; padding-bottom: 10px }
+.pvl { padding-top: 20px; padding-bottom: 20px }
+.pvh { padding-top: 30px; padding-bottom: 30px }
