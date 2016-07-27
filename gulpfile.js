@@ -102,6 +102,7 @@ gulp.task('watch', ['tsconfig-glob'], function() {
 
   gulp.watch('app/scss/**/*.scss', ['sass']);
   gulp.watch('app/**/*.html', ['templates']).on('change', browserSync.reload);
+  gulp.watch(['public/systemjs.config.js', 'public/index.html']).on('change', browserSync.reload);
   gulp.watch('app/**/*.ts', ['compile']).on('change', browserSync.reload);
 });
 
