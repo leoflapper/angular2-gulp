@@ -9,20 +9,17 @@ var gulpif = require('gulp-if');
 var argv = require('yargs').argv;
 var concat = require('gulp-concat');
 var ngAnnotate = require('gulp-ng-annotate');
-var templateCache = require('gulp-angular-templatecache');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var csso = require('gulp-csso');
 var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var changed = require('gulp-changed');
 
 const DIST = 'public/dist';
 const LIB = DIST +'/lib';
 const APP = DIST +'/app';
-
 
 // clean the contents of the distribution directory
 gulp.task('clean:lib', function () {
@@ -41,6 +38,7 @@ gulp.task('sass', function() {
     .pipe(browserSync.stream());
 });
 
+// Compresses the templates
 gulp.task('templates', function() {
   return gulp.src('app/**/*.html')
     .pipe(uglify())
@@ -52,6 +50,10 @@ gulp.task('compile', function () {
   return gulp
     .src('app/**/*.ts')
     .pipe(changed(APP))
+    .pipe(tslint()) 
+    .pipe(tslint.report({
+      emitError: false
+    }))
     .pipe(sourcemaps.init()) 
     .pipe(typescript(tscConfig.compilerOptions))
     .pipe(ngAnnotate())
@@ -59,6 +61,13 @@ gulp.task('compile', function () {
     .pipe(gulp.dest(APP));
 });
 
+//Copies all the app files to the public dist directory
+gulp.task('copy:assets', ['clean:lib'], function() {
+  return gulp.src(['app/**/*', '!app/**/*.ts', '!app/**/*.scss'], { base : './' })
+    .pipe(gulp.dest(DIST))
+});
+
+// Copys the library folders to the public folder
 gulp.task('copy:libs', ['clean:lib'], function() {
     return gulp.src([
       'node_modules/**/*'
@@ -66,15 +75,16 @@ gulp.task('copy:libs', ['clean:lib'], function() {
     .pipe(gulp.dest(LIB))
 });
 
+// Typescript linter
 gulp.task('tslint', function() {
   return gulp.src('app/**/*.ts')
-    .pipe(tslint())
     .pipe(tslint({
         formatter: 'verbose'
     }))
     .pipe(tslint.report());
 });
 
+// DefinitelyTyped
 gulp.task('tsconfig-glob', function () {
   return tsconfigGlob({
     configPath: '.',
@@ -82,15 +92,8 @@ gulp.task('tsconfig-glob', function () {
   });
 });
 
-gulp.task('copy:assets', ['clean:lib'], function() {
-  return gulp.src(['app/**/*', '!app/**/*.ts', '!app/**/*.scss'], { base : './' })
-    .pipe(gulp.dest(DIST))
-});
-
-
-
 gulp.task('watch', ['tsconfig-glob'], function() {
-  
+
   browserSync.init({
         server: {
             baseDir: "./public"
