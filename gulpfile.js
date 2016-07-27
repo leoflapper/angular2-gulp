@@ -19,9 +19,9 @@ var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var changed = require('gulp-changed');
 
-var DIST = 'public/dist';
-var LIB = DIST +'/lib';
-var APP = DIST +'/app';
+const DIST = 'public/dist';
+const LIB = DIST +'/lib';
+const APP = DIST +'/app';
 
 
 // clean the contents of the distribution directory
