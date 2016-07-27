@@ -5,6 +5,7 @@
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
     "postinstall": "tsd install && gulp build",
+    "postupdate": "gulp build",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
