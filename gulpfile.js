@@ -1,21 +1,24 @@
-var gulp = require('gulp');
-var del = require('del');
-var typescript = require('gulp-typescript');
-var tslint = require('gulp-tslint');
-var tscConfig = require('./tsconfig.json');
-var tsconfigGlob = require('tsconfig-glob');
-var sourcemaps = require('gulp-sourcemaps');
-var gulpif = require('gulp-if');
-var argv = require('yargs').argv;
-var concat = require('gulp-concat');
-var ngAnnotate = require('gulp-ng-annotate');
-var autoprefixer = require('gulp-autoprefixer');
-var browserSync = require('browser-sync').create();
-var sass = require('gulp-sass');
-var csso = require('gulp-csso');
-var uglify = require('gulp-uglify');
-var plumber = require('gulp-plumber');
-var changed = require('gulp-changed');
+var gulp = require('gulp'),
+    del = require('del'),
+    url = require("url"),
+    path = require("path"),
+    fs = require("fs"),
+    typescript = require('gulp-typescript'),
+    tslint = require('gulp-tslint'),
+    tscConfig = require('./tsconfig.json'),
+    tsconfigGlob = require('tsconfig-glob'),
+    sourcemaps = require('gulp-sourcemaps'),
+    gulpif = require('gulp-if'),
+    argv = require('yargs').argv,
+    concat = require('gulp-concat'),
+    ngAnnotate = require('gulp-ng-annotate'),
+    autoprefixer = require('gulp-autoprefixer'),
+    browserSync = require('browser-sync').create(),
+    sass = require('gulp-sass'),
+    csso = require('gulp-csso'),
+    uglify = require('gulp-uglify'),
+    plumber = require('gulp-plumber'),
+    changed = require('gulp-changed');
 
 const DIST = 'public/dist';
 const LIB = DIST +'/lib';
@@ -50,10 +53,6 @@ gulp.task('compile', function () {
   return gulp
     .src('app/**/*.ts')
     .pipe(changed(APP))
-    .pipe(tslint()) 
-    .pipe(tslint.report({
-      emitError: false
-    }))
     .pipe(sourcemaps.init()) 
     .pipe(typescript(tscConfig.compilerOptions))
     .pipe(ngAnnotate())
@@ -92,18 +91,31 @@ gulp.task('tsconfig-glob', function () {
   });
 });
 
+var defaultFile = "index.html"
+var baseDir = "public";
 gulp.task('watch', ['tsconfig-glob'], function() {
 
   browserSync.init({
         server: {
-            baseDir: "./public"
+            baseDir: "./" + baseDir,
+            middleware: function(req, res, next) {
+                var fileName = url.parse(req.url);
+                fileName = fileName.href.split(fileName.search).join("");
+                var fileExists = fs.existsSync(__dirname + "/" + baseDir + fileName);
+                if (!fileExists && fileName.indexOf("browser-sync-client") < 0) {
+                    req.url = "/" + defaultFile;
+                }
+                return next();
+            }
         }
   });
 
   gulp.watch('app/scss/**/*.scss', ['sass']);
   gulp.watch('app/**/*.html', ['templates']).on('change', browserSync.reload);
+  gulp.watch('app/**/**/*.html', ['templates']).on('change', browserSync.reload);
   gulp.watch(['public/systemjs.config.js', 'public/index.html']).on('change', browserSync.reload);
   gulp.watch('app/**/*.ts', ['compile']).on('change', browserSync.reload);
+  
 });
 
 gulp.task('build', ['compile', 'copy:libs', 'copy:assets', 'sass']);
